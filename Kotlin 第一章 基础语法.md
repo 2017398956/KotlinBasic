@@ -36,7 +36,7 @@
 	val hexBytes = 0xFF_EC_DE_5E
 	val bytes = 0b11010010_01101001_10010100_10010010
 ### 1.4 拆箱与装箱 ###
-在 java 中，数字类型是 JVM 私有的类型，当我们使用泛型或需要使其为 null 时，需要对其进行装箱操作（从 J2SE 5.0 可以自动装箱拆箱 ）；而在 Kotlin 中如果一个基本数据类型（包括 Boolean 等）是可 null ，即使用了 “？” 声明，那么就会被自动装箱。
+在 java 中，数字类型是 JVM 私有的类型，当我们使用泛型或需要使其为 null 时，需要对其进行装箱操作（从 J2SE 5.0 可以自动装箱拆箱 ）；而在 Kotlin 中如果一个基本数据类型（包括 Boolean 等）是可 null ，即：使用了 “？” 声明，那么就会被自动装箱。
 
 	val a: Int = 10000
 	print(a === a) // Prints 'true'
@@ -74,9 +74,47 @@
 ### 1.7 Boolean ###
 Boolean 有两个取值 true 或 false 。
 ### 1.8 Array ###
-### 1.9 String ###
+Array 类型在 Kotlin 中创建比较自由，常用的的方式有如下几种：
 
-## 2. 定义包名 ##
+	// 1. 使用 arrayOf() 创建
+	val list01 : Array<Int> = arrayOf(1 , 2 , 3)
+	// 2. 创建一个指定长度的 null Array
+	val list02 : Array<Int> = arrayOfNulls<Int>(3) 
+	// 3. 创建数组 ["0", "1", "4", "9", "16"]
+	val list03 = Array(5, { i -> (i * i).toString() })
+	// 4. 不用泛型创建（Boolean 、 Float 等）
+	val list04: IntArray = intArrayOf(1, 2, 3)
+
+
+### 1.9 String ###
+在 Kotlin 中 String 类型可以像 Array 类型那样通过迭代的方式挨个字符输出，如：
+
+	val str: String = "abc"
+	for(c in str){
+		println(c)
+	}
+	// 打印结果
+	// a
+	// b
+	// c
+另外，String 在 Kotlin 中除了有像 java 中一样的声明方式，又添加了一种新的声明方式：
+
+	// 1. 与 java 相同的声明方式,特殊字符使用反斜杠
+	val str01 = "Hello \"World\" !\n"  
+	// 2. Kotlin 特有的声明方式：三个双引号开始至三个双引号结束
+	val text = """
+    	for (c in "foo")
+        	print(c)
+	"""
+	// 这种方式两组双引号间的内用会原封不动的作为一个字符串包括特殊字符和空格，如果想去掉空格，使用 
+	
+除了新的声明方式，Kotlin 还为 String 添加了一种以 "$" 作为开头的引入方式：
+
+	val text01 = "10"
+    val text02 = """abcd${text01}"""
+    println("${text01.length}")			// 10
+    println("$text02")				    // abcd10
+## [2. 定义包名](http://kotlinlang.org/docs/reference/basic-syntax.html) ##
 包名应该在文件头部
 
 	package my.demo

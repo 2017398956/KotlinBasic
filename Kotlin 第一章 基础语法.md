@@ -115,7 +115,7 @@ Array 类型在 Kotlin 中创建比较自由，常用的的方式有如下几种
     println("${text01.length}")			// 10
     println("$text02")				    // abcd10
 ## [2. 定义包名](http://kotlinlang.org/docs/reference/basic-syntax.html) ##
-包名应该在文件头部，如果不声明 Kotlin 文件所在的包，那么该文件将没有包名，被不同包下的方法调用时只需要 import funXXX 即可。
+包名应该在文件头部，如果不声明 Kotlin 文件所在的包，那么该文件将没有包名，被不同包下的函数调用时只需要 import funXXX 即可。
 
 	// 1. file01.kt
 	package my.demo
@@ -159,48 +159,48 @@ Kotlin 也会像 java 那样默认导入一些包，这样我们就可以直接�
 		import bar.Bar as bBar
 
 2. 除了 class 外，import 在 Kotlin 中还可以导入：
-- 顶级方法和属性
-- [对象声明](http://kotlinlang.org/docs/reference/object-declarations.html)中的方法和属性
+- 顶级函数和属性
+- [对象声明](http://kotlinlang.org/docs/reference/object-declarations.html)中的函数和属性
 - 枚举常量
 
 另外，Kotlin 没有 import static ，所有情况都用 import 即可。
 
 **注意**：如果顶级的声明用了 private ，那么它只能在所声明的文件中使用。
 
-### [2.2 方法](http://kotlinlang.org/docs/reference/functions.html) ###
-在 Kotlin 中方法的声明要用 fun ，一般有如下几种方式：
+### [2.2 函数](http://kotlinlang.org/docs/reference/functions.html) ###
+在 Kotlin 中函数的声明要用 fun ，一般有如下几种方式：
 1. 声明返回类型
 
 		fun sum(a: Int, b: Int): Int {
     		return * // 一个 Int 类型的数字
 		}
 
-2. 对于表达式构成的方法，返回一个推测类型
+2. 对于表达式构成的函数，返回一个推测类型
 
 		fun sum(a: Int, b: Int) = a + b // 这里会返回 a 、 b 之和且为 Int 类型
 
 3. 返回一个无意义的值
 
-		// 此方法的返回值为： kotlin.Unit
+		// 此函数的返回值为： kotlin.Unit
 		fun printSum(a: Int, b: Int): Unit {
-			... // 方法体中如果有 return ，其后不能跟任何有意义的值
+			... // 函数体中如果有 return ，其后不能跟任何有意义的值
 		}
 
-4. 当返回值为 Unit 时，可以再方法声明中省略，上面的方法等效于：
+4. 当返回值为 Unit 时，可以再函数声明中省略，上面的函数等效于：
 
-		// 此方法的返回值为： kotlin.Unit
+		// 此函数的返回值为： kotlin.Unit
 		fun printSum(a: Int, b: Int){
-			... // 方法体中如果有 return ，其后不能跟任何有意义的值
+			... // 函数体中如果有 return ，其后不能跟任何有意义的值
 		}
 
 #### 2.2.1 中缀表达式 ####
-当符合下面三种情况时，方法也可以使用中缀表达式的方式声明（并没看出有什么用 ... ）:
+当符合下面三种情况时，函数也可以使用中缀表达式的方式声明（并没看出有什么用 ... ）:
 
-- 成员方法或[扩展方法](http://kotlinlang.org/docs/reference/extensions.html)
-- 方法有且只有一个参数
-- 方法声明关键字 fun 前用 infix 修饰
+- 成员函数或[扩展函数](http://kotlinlang.org/docs/reference/extensions.html)
+- 函数有且只有一个参数
+- 函数声明关键字 fun 前用 infix 修饰
 		
-使用方法如下:
+使用函数如下:
 
 	class CustomObject{
 	
@@ -218,13 +218,13 @@ Kotlin 也会像 java 那样默认导入一些包，这样我们就可以直接�
 	1.test(2)
 
 #### 2.2.2 参数 ####
-方法参数使用 Pascal 表达式的格式声明，也就是 参数名: 参数类型 的格式。参数间以逗号分隔，且参数必须指定参数类型。
+函数参数使用 Pascal 表达式的格式声明，也就是 参数名: 参数类型 的格式。参数间以逗号分隔，且参数必须指定参数类型。
 
 	fun powerOf(number: Int, exponent: Int) {
 		...
 	}
 
-#### 2.2.3 方法参数的默认值 ####
+#### 2.2.3 函数参数的默认值 ####
 在 Kotlin 中，可以直接对参数进行初始化：
 
 	open class A {
@@ -252,9 +252,9 @@ Kotlin 也会像 java 那样默认导入一些包，这样我们就可以直接�
 	}
 
 #### 2.2.4 Named Arguments ####
-对于一个有很多参数的方法，有时我们仅传入一个参数，而其他参数都使用默认值，在 java 中你需要把其他每个参数的默认值按顺序写一遍；现在，在 Kotlin 中不需要那么做了，我们可以只关注那些需要修改的参数，例如：
+对于一个有很多参数的函数，有时我们仅传入一个参数，而其他参数都使用默认值，在 java 中你需要把其他每个参数的默认值按顺序写一遍；现在，在 Kotlin 中不需要那么做了，我们可以只关注那些需要修改的参数，例如：
 
-	// 一个大量参数的方法
+	// 一个大量参数的函数
 	fun reformat(str: String,
 	             normalizeCase: Boolean = true,
 	             upperCaseFirstLetter: Boolean = true,
@@ -270,8 +270,8 @@ Kotlin 也会像 java 那样默认导入一些包，这样我们就可以直接�
 	reformat("abc" , wordSeparator = 'a' , normalizeCase = false)
 	// 但不能这样
 	// reformat("abc" , 'a') // 错误的写法
-#### 2.2.5 方法返回 kotlin.Unit ####
-当一个方法无需返回任何有意义的值时，类似于 java 中的 void ，但不同的是：这个方法会返回一个唯一值 kotlin.Unit ，且返回类型 Unit 可以省略。
+#### 2.2.5 函数返回 kotlin.Unit ####
+当一个函数无需返回任何有意义的值时，类似于 java 中的 void ，但不同的是：这个函数会返回一个唯一值 kotlin.Unit ，且返回类型 Unit 可以省略。
 	
 	fun myPrint(str : String){
 		...
@@ -282,7 +282,7 @@ Kotlin 也会像 java 那样默认导入一些包，这样我们就可以直接�
 	}
 
 #### 2.2.6 单一表达式 ####
-当一个方法的返回值是一个表达式语句时，大括号可以省略，将表达式置于 = 后即可。
+当一个函数的返回值是一个表达式语句时，大括号可以省略，将表达式置于 = 后即可。
 
 	fun double(x: Int): Int = x * 2
 
@@ -290,11 +290,11 @@ Kotlin 也会像 java 那样默认导入一些包，这样我们就可以直接�
 
 	fun double(x: Int) = x * 2
 
-#### 2.2.7 明确方法返回类型 ####
-当方法的方法体用大括号括起来的时候必须指定方法的返回值类型，除非方法的返回值是 Unit ，此时可以省略不写；因为，当方法体有大括号时，Kotlin 不会推测方法返回值得类型。
+#### 2.2.7 明确函数返回类型 ####
+当函数的函数体用大括号括起来的时候必须指定函数的返回值类型，除非函数的返回值是 Unit ，此时可以省略不写；因为，当函数体有大括号时，Kotlin 不会推测函数返回值得类型。
 
 #### 2.2.8 不定长参数 ####
-不定长参数类似于 java 中的 void method(String ...){...}，当一个方法的参数是不定长参数时，使用关键字 vararg  声明。
+不定长参数类似于 java 中的 void method(String ...){...}，当一个函数的参数是不定长参数时，使用关键字 vararg  声明。
 
 	fun <T> asList(vararg ts: T): List<T> {
 	    val result = ArrayList<T>()
@@ -308,5 +308,104 @@ Kotlin 也会像 java 那样默认导入一些包，这样我们就可以直接�
 
 **注意**：当不定长参数不是最后一个参数时，可以使用 named argument （见 2.2.4）。
 
-#### 2.2.9 方法的使用范围 ####
+#### 2.2.9 函数的使用范围 ####
+在 Kotlin 中，函数可以直接在文件中声明，而不需要依赖 class 存在。例如下面的 Hello.kt 文件：
 
+	// Hello.kt 文件中只有一个函数
+	fun sayHello(){
+		println("Hello")
+	}
+另外，Kotlin 函数也能作为 局部函数 、 成员函数 和 扩展函数。
+
+**局部函数**
+
+	// 函数嵌套在另一个函数中，并能访问这个函数外的变量
+	val name: String = "kotlin"
+	fun main(args: Array<String>) {
+		val str : String = "str"
+	    fun localFun(str:String){
+	        println("local fun $name " + str)
+	    }
+	    localFun()
+	}
+
+**成员函数**
+
+成员函数就是定义在 class 中的函数。
+
+	class Sample() {
+	    fun foo() { print("Foo") }
+	}
+
+**泛型**
+
+和 java 中的泛型大同小异。
+
+	fun <T> singletonList(item: T): List<T> {
+	    // ...
+	}
+
+**[内联函数](http://kotlinlang.org/docs/reference/inline-functions.html)**
+
+**[Extension Functions](http://kotlinlang.org/docs/reference/extensions.html)**
+
+**[Higher-Order Functions and Lambdas](http://kotlinlang.org/docs/reference/lambdas.html)**
+
+**尾递归函数**
+
+关于什么是尾递归函数可以看[这篇](http://www.cnblogs.com/Anker/archive/2013/03/04/2943498.html)，这里只讲一下如何在 Kotlin 中使用。
+
+	tailrec fun findFixPoint(x: Double = 1.0): Double
+	        = if (x == Math.cos(x)) x else findFixPoint(Math.cos(x))
+
+使用尾递归需要在关键字 fun 前添加 tailrec ，另外，使用尾递归时这个函数必须在最后调用自身，你不能在 try/catch/finally 中使用尾递归，而且当前尾递归（version 1.1）仅在 JVM 后端支持。
+## [3.定义局部变量](http://kotlinlang.org/docs/reference/properties.html) ###
+**只读局部变量**
+
+	// 只读变量用关键字 val 声明
+	val a: Int = 1  // 声明的时候立刻初始化
+	val b = 2   // 编译器会推测 b 是 Int 类型
+	val c: Int  // 声明时不初始化，必须指定变量类型
+	c = 3       // 声明后赋值
+	// 对于只读变量只能初始化时赋值一次，下面的代码如果不注释则编译器会给出提示编译不通过
+	// a = 2
+
+**可变局部变量**
+
+	// 可变变量用关键字 var 声明
+	var x = 5 // 编译器会推测 x 是 Int 类型
+	x += 1
+
+**注意**：在 Kotlin 中没有关键字 new ，所以创建对象时可以直接调用构造方法：
+
+	class A{
+		...
+	}
+	var a = A()
+
+## 4.注释 ##
+
+和 java 一样，Kotlin 支持也单行注释和多行注释，但是 Kotlin 支持多行注释间的嵌套。
+
+	// This is an end-of-line comment
+	
+	/* This is a block comment
+	   on multiple lines. */
+	
+	// 多行注释的嵌套
+	/* This is a block comment	/* This is a block comment
+		   on multiple lines. */
+	            on multiple lines. */
+
+## 5.条件表达式 ##
+同 java 。
+## 6.null 安全 ##
+在 java 中，稍不注意就会报 NullPointException ，而在 Kotlin 中完全不用担心，我们可以使用 ？ 标识对象获属性石 null 安全的。
+
+	fun main(args : Array<String>){
+		fun testNullSafety() : String?{
+			return null
+		}
+		// 这里并不会报 NPE
+		println(testNullSafety().toString())
+	}

@@ -1,4 +1,4 @@
-# 第一章 基础语法 #
+# Kotlin 从学习到 Android 第一章 基础语法 #
 ## [1. 基本数据类型](http://kotlinlang.org/docs/reference/basic-types.html) ##
 ### 1.1 数字类型 ###
 
@@ -11,7 +11,7 @@
 | Short	  | 2       |
 | Byte	  | 1       |
 
-**注意**：且 Kotlin 的字符类型不能转化为数字。
+**注意**： Kotlin 的字符类型不能转化为数字。
 	
 	// java 代码下面将输出 98
 	System.out.println('a' + 1) ;
@@ -400,12 +400,157 @@ Kotlin 也会像 java 那样默认导入一些包，这样我们就可以直接�
 ## 5.条件表达式 ##
 同 java 。
 ## 6.null 安全 ##
-在 java 中，稍不注意就会报 NullPointException ，而在 Kotlin 中完全不用担心，我们可以使用 ？ 标识对象获属性石 null 安全的。
+在 java 中，稍不注意就会报 NullPointException ，而在 Kotlin 中完全不用担心，我们可以使用 ？ 标识对象获属性是 null 安全的。
 
 	fun main(args : Array<String>){
 		fun testNullSafety() : String?{
 			return null
 		}
 		// 这里并不会报 NPE
-		println(testNullSafety().toString())
+		println(testNullSafety().toString()) // null
 	}
+
+## 7.类型自动转换 ##
+is 操作符用来检测一个实例的类型，当一个局部变量或属性被检测属于某个类型（如： String）时，则在这个检测分支中可以直接使用这个类型的方法（如：String.length）而不需要强制转换。
+
+	fun getStringLength(obj: Any): Int? {
+	    if (obj is String) {
+	        // obj 自动转换成 String 类型，我们可以直接使用 String 的方法
+	        return obj.length
+	    }
+	
+		// 如果这里返回 obj.length 则编译不通过，因为此处的 obj 是 Any 类型，没有 length 属性
+	    // return obj.length
+	    return null
+	}
+
+当然，你也可以这样写
+
+	fun getStringLength(obj: Any): Int? {
+	    if (obj !is String) return null
+	    return obj.length
+	}
+
+或者
+
+	fun getStringLength(obj: Any): Int? {
+	    if (obj is String && obj.length > 0) {
+	        return obj.length
+	    }
+	    return null
+	}
+
+## 8.for 循环 ##
+
+	val items = listOf("apple", "banana", "kiwi")
+	for (item in items) {
+	    println(item)
+	}
+
+或者
+
+	val items = listOf("apple", "banana", "kiwi")
+	for (index in items.indices) {
+	    println("item at $index is ${items[index]}")
+	}
+
+从上面我们可以看出，for 循环和 java 中的 for 功能一样，而操作符 in 相当于 java 中的 ： 。
+
+## 9.while 循环 ##
+	val items = listOf("apple", "banana", "kiwi")
+	var index = 0
+	while (index < items.size) {
+	    println("item at $index is ${items[index]}")
+	    index++
+	}
+
+while 和 java 中的 while 类似。
+## 10.when ##
+Kotlin 中的 when 更像是 switch：
+
+	fun describe(obj: Any): String =
+	when (obj) {
+	    1          -> "One"
+	    "Hello"    -> "Greeting"
+	    is Long    -> "Long"
+	    !is String -> "Not a string"
+	    else       -> "Unknown"
+	}
+
+## [11.范围操作](http://kotlinlang.org/docs/reference/ranges.html) ##
+范围操作是使用 .. 、 downTo 和 step 对数字取值的操作。
+
+检测某个值在一定范围内
+
+	val x = 10
+	val y = 9
+	if (x in 1..y+1) {// 取值范围 [1,10]
+	    println("success") // success
+	}
+	val z = 2.34f
+	if (z in 1..y+1) {
+	    println("success") // success
+	}
+
+检测某个值不在范围内
+
+	val list = listOf("a", "b", "c")
+	
+	if (-1 !in 0..list.lastIndex) {
+	    println("-1 is out of range")
+	}
+	if (list.size !in list.indices) {
+	    println("list size is out of valid list indices range too")
+	}
+
+**注意**：当判断范围时，Int 、 Long 、 Float 等可以混用，但是当迭代时只取 Int 类型。
+
+	for (x in 1..5) {
+	    print(x)	// 12345
+	}
+
+上面的都是升序和逐个取，也可以降序和设定取值间隔
+
+	for (x in 1..10 step 2) {
+	    println(x)		// 13579
+	}
+	for (x in 9 downTo 0 step 3) {
+	    println(x)		// 9630
+	}
+
+## 12.集合的使用 ##
+集合的迭代
+
+	val items = listOf("apple", "banana", "kiwi")
+    for (item in items) {
+        println(item)
+    }
+
+	// apple
+	// banana
+	// kiwi
+
+检测集合中是否包含某个元素
+
+	val items = setOf("apple", "banana", "kiwi")
+    when {
+        "orange" in items -> println("juicy")
+        "apple" in items -> println("apple is fine too")
+    }
+
+	// apple is fine too
+
+使用 lambda 表达式操作集合中的元素
+
+	val fruits = listOf("banana", "avocado", "apple", "kiwi")
+    fruits
+    .filter { it.startsWith("a") } // 过滤出以字母 a 开头的字符串
+    .sortedBy { it }			   // 将过滤出的 String 默认升序排列
+    .map { it.toUpperCase() }      // 将所选 String 映射成全大写，而 fruits 的不会改变
+    .forEach { println(it) }       // 输出操作结果
+
+	println(fruits[1])
+
+	// APPLE
+	// AVOCADO
+	// avocado

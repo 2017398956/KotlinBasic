@@ -112,7 +112,7 @@ Array 类型在 Kotlin 中创建比较自由，常用的的方式有如下几种
 
 	val text01 = "10"
     val text02 = """abcd${text01}"""
-    println("${text01.length}")			// 10
+    println("${text01.length}")			// 2
     println("$text02")				    // abcd10
 ## [2. 定义包名](http://kotlinlang.org/docs/reference/basic-syntax.html) ##
 包名应该在文件头部，如果不声明 Kotlin 文件所在的包，那么该文件将没有包名，被不同包下的函数调用时只需要 import funXXX 即可。

@@ -2,7 +2,15 @@
 
 ## 前言
 
-我们经常创建一些只保存数据的类。 在这些类中，一些标准函数往往是从数据机械推导而来的。在 Kotlin 中，这叫做数据类，并标记为data。定义这些类时，编译器为我们做了什么？自动生成了什么内容？我们可以通过使用，并反编译成java代码进行分析。
+我们经常创建一些只保存数据的类。 在这些类中，一些标准函数往往是从数据机械推导而来的。在 Kotlin 中，这叫做 **数据类**，并标记为 data class。
+
+**使用数据类的前提条件：**
+
+1. 主构造方法至少要有一个参数
+2. 所有的主构造方法参数都需要被标记为 var 或者 val
+3. 数据类不能是抽象、open的、sealed（密封类）、inner的类
+
+那么定义这些类时，编译器为我们做了什么？自动生成了什么内容？我们可以通过使用，并反编译成java代码进行分析。
 
 ## 工具
 
@@ -115,7 +123,7 @@ public final class Child {
 - 属性的get()/set()
 - constructor()
 
-接下来我们将重点放在最后两个方法进行分析
+接下来我们将重点放在这几个方法进行分析
 
 ## get()/set()
 
@@ -314,5 +322,22 @@ fun main() {
  val(studentAge, _, studentNickName) = child
  println(studentAge)
  println(studentNickName)
+}
+```
+
+## copy()
+
+在Java中，一个对象的类成员如果如果被另一个对象复制，仅仅修改了一个参数，那么需要把这个对象的所有值都赋值给另一个对象，这样是非常麻烦的。
+在kotlin中，可以通过copy()方法执行修改某一个参数。
+
+注意： 如果不加参数名字，那么默认是第一个，必须明确参数名
+
+```kotlin
+fun main() {
+    val person = Person(name: "zhangsan", age: 20, address: "beijing")
+    println(person) // Person(name=zhangsan, age=20, address=beijing)
+    person.age = 30
+    val person2 : Person = person.copy(address = "shanghai")
+    println(person2) // Person(name=zhangsan, age=30, address=shanghai)
 }
 ```

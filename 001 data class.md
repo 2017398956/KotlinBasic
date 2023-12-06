@@ -14,10 +14,12 @@ Kotlin Bytecode 后，会出现 Kotlin Bytecode 的窗口：
 
 ## 使用详解
 
-    data class Child(
+```kotlin
+	data class Child(
 	    val age: Int,
 	    val name: String
 	)
+```
 
 反编译成java代码后：
 

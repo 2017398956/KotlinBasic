@@ -130,3 +130,16 @@ class Test {
 ```
 
 面试官往往会问你执行完 invokeTest() 后 Test 中的变量 a 和 list 的值是怎么样的，相信大家都能答出来。现在在 kotlin 中，由于默认的都是 val，所以对于初学者就没有这个问题了，再也不用疑惑什么时候 class 属性可以改变，什么时候不会改变了，只要是 val 的都不可改变。
+
+下面是官方的解释：
+
+```
+The main reason is that this was confusing: people tend to think that
+this means passing a parameter by reference, which we do not support
+(it is costly at runtime). Another source of confusion is primary
+constructors: “val” or “var” in a constructor declaration means
+something different from the same thing if a function declarations
+(namely, it creates a property). Also, we all know that mutating
+parameters is no good style, so writing “val” or “var” in front of a
+parameter in a function, catch block of for-loop is no longer allowed.
+```
